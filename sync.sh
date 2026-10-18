@@ -68,7 +68,7 @@ else
     else
       printf -- '- **改动文件**（%s）：\n\n```\n%s\n```\n' "$count" "$changes"
     fi
-    printf -- '- **下一步**：%s\n' "$next"
+    printf '\n- **下一步**：%s\n' "$next"
   } >> "$LOG_DOC"
   echo "✓ 已追加交接记录（$count 项改动）"
 fi
