@@ -28,7 +28,9 @@ if [ "$LOCAL_ONLY" -eq 0 ] && ! git remote get-url origin >/dev/null 2>&1; then
 fi
 
 branch=$(git rev-parse --abbrev-ref HEAD)
-device=$(hostname 2>/dev/null || echo device)
+# 设备名：优先用本仓库的本地配置 sync.device（不随仓库同步，每台设备各自设置）
+device=$(git config --get sync.device 2>/dev/null || true)
+[ -z "$device" ] && device=$(hostname 2>/dev/null || echo device)
 now=$(date '+%Y-%m-%d %H:%M')
 
 # ── 1) 空文件夹也纳入版本管理：给每个空目录放一个占位文件 ──
@@ -44,7 +46,7 @@ done < <(find . -path ./.git -prune -o -type d -print | sort -r)
 [ "$added" -eq 0 ] && echo "· 无需补充空目录占位"
 
 # ── 2) 统计本次改动（在写记录之前抓，避免把记录本身算进去）──
-changes=$(git status --porcelain)
+changes=$(git status --porcelain -uall)
 count=0
 [ -n "$changes" ] && count=$(printf '%s\n' "$changes" | wc -l | tr -d ' ')
 
