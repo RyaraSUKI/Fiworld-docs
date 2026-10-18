@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 一份命令同步工作区：提交本地改动 → 拉取远端 → 推到远端。
-# 用法： ./sync.sh            正常同步
-#        ./sync.sh "提交说明"  自定义提交信息
+# 用法： bash sync.sh            正常同步
+#        bash sync.sh "提交说明"  自定义提交信息
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -30,7 +30,7 @@ fi
 if git fetch --prune origin >/dev/null 2>&1; then
   if git rev-parse --verify -q "origin/$branch" >/dev/null; then
     if ! git rebase "origin/$branch"; then
-      echo "✗ 有冲突。解决后执行： git add -A && git rebase --continue && ./sync.sh"
+      echo "✗ 有冲突。解决后执行： git add -A && git rebase --continue && bash sync.sh"
       exit 1
     fi
   fi
