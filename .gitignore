@@ -1,0 +1,25 @@
+# 同步忽略
+# —— 系统/编辑器杂项 ——
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.swp
+*.swo
+~$*
+.obsidian/workspace.json
+
+# —— 临时文件 ——
+*.tmp
+*.log
+*.bak
+.gittest/
+
+# —— 同步工具的冲突副本 ——
+.sync-conflict-*
+.sync-ignore
+.stversions/
+
+# —— Android 缩略图缓存 ——
+.nomedia
+.cache/
